@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "set NODE_ENV=development && nodemon index.js",
     "dev2": "concurrently \"set NODE_ENV=development && nodemon index.js\" \"npx tailwindcss -i ./src/input.css -o ./public/output.css --watch\"",
+    "dev3": "set NODE_ENV=development && node index.js",
     "start": "set NODE_ENV=production && node index.js"
   },
   "author": "",
@@ -18,6 +19,7 @@
     "express": "^4.21.1",
     "express-session": "^1.18.1",
     "firebase": "^11.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.2"
   },
   "devDependencies": {

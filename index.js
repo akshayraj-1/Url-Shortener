@@ -6,13 +6,13 @@ const dotenv = require("dotenv");
 const ejsmate = require("ejs-mate");
 
 // Controllers
-const homeController = require("./controllers/home.controller");
-const authController = require("./controllers/auth.controller");
-const userController = require("./controllers/user.controller");
-const urlController = require("./controllers/url.controller");
+const homeController = require("./src/controllers/home.controller");
+const authController = require("./src/controllers/auth.controller");
+const userController = require("./src/controllers/user.controller");
+const urlController = require("./src/controllers/url.controller");
 
 // Environment Variables
-dotenv.config({ path: path.join(__dirname, "config", `.env.${process.env.NODE_ENV.trim()}`) });
+dotenv.config({ path: path.join(__dirname, `.env.${process.env.NODE_ENV.trim()}`) });
 
 // Express Setup
 const app = express();
@@ -21,9 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     secret: process.env.SESSION_SECRET,
-    cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 60000 }
+    cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
 
 // EJS/View Engine Setup
@@ -33,6 +33,7 @@ app.set("views", path.join(__dirname, "src/views"));
 
 // Home routes
 app.get("/", homeController.getHome);
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 // Auth routes
 app.get("/login", authController.getLogin);
